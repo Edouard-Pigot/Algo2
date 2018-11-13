@@ -9,17 +9,17 @@ public class LevenshteinDistance {
     }
 
     public int calculation(String falseString, String trueString) {
-        int distance[][] = new int[0][0];
+        int distance[][] = new int[falseString.length()+1][trueString.length()+1];
         int costSub;
-        for (int i= 0 ; i < falseString.length();++i){
+        for (int i= 0 ; i <= falseString.length();++i){
             distance[i][0] = i;
         }
-        for(int j=0; j < trueString.length();++j){
+        for(int j=0; j <= trueString.length();++j){
             distance[0][j] = j;
         }
 
-        for (int i = 1 ; i < falseString.length();++i){
-            for(int j= 1 ; j<trueString.length();++j){
+        for (int i = 1 ; i <= falseString.length();++i){
+            for(int j= 1 ; j<=trueString.length();++j){
                 if(falseString.charAt(i-1) == trueString.charAt(j-1)){
                     costSub = 0;
                 } else {
