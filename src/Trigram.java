@@ -1,22 +1,17 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Created by RAPHAEL on 02/11/2018.
  */
 public class Trigram {
 
-    public HashMap<String, HashSet<char[]>> triParMot = new HashMap<>();
-    public HashMap<char[], HashSet<String>> motParTri = new HashMap<>();
+    public HashMap<String,  HashSet<char[]>> trigrammesDesMots = new HashMap<>();
+    public HashMap<char[], HashSet<String>> motsDesTrigrammes = new HashMap<>();
     //public List<String> dictionnaire = new ArrayList<>();
 
-    public Trigram(){
-        lectureDico();
-    }
+    public Trigram(){}
 
     public void tri(String mot){
         decompositionTri(mot);
@@ -45,18 +40,41 @@ public class Trigram {
         String motChevron = "<" + mot + ">";
         char[] trigramme =  new char[3];
         for(int i = 0; i <= motChevron.length() - 3; i++){
-            motChevron.getChars(i, i + 2, trigramme, 0);
+            motChevron.getChars(i, i + 3, trigramme, 0);
             listeTri.add(trigramme);
-            if(!motParTri.containsKey(trigramme)){
+            if(!motsDesTrigrammes.containsKey(trigramme)){
                 HashSet<String> listeMot = new HashSet<>();
                 listeMot.add(mot);
-                motParTri.put(trigramme, listeMot);
+                motsDesTrigrammes.put(trigramme, listeMot);
             } else {
-                HashSet<String> listeTmp = motParTri.get(trigramme);
+                HashSet<String> listeTmp = motsDesTrigrammes.get(trigramme);
                 listeTmp.add(mot);
-                motParTri.put(trigramme, listeTmp);
+                motsDesTrigrammes.put(trigramme, listeTmp);
             }
         }
-        triParMot.put(mot, listeTri);
+        trigrammesDesMots.put(mot, listeTri);
+
     }
+
+   /* "<coucou>"
+    "<co"
+    "cou"
+    "ouc"
+    "uco"
+    "ou>"
+    "<co" "coucou" "content"
+    "courge" "<co" "cou" "our" "rge" "ge>"
+
+    "coucou / salut / concours / con / cailloux"
+    "coucou" "<co" "cou" "ouc" "uco" "ou>"
+    "salut"  "<sa" "sal" "alu" "lut" "ut>"
+    "concours" "<co" "con" "onc" "nco" "cou" "our" "urs" "rs>"
+    "con" "<co" "con" "co>"
+    "cailloux" "<ca" "cai" "ail" "ill" "llo" "lou" "oux" "ux>"
+
+    "<co" "coucou" "concours" "con"
+
+    "coucou" "concours" "con"
+    2         3         1*/
+
 }
