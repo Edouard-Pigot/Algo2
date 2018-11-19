@@ -13,7 +13,8 @@ public class Comparator {
     public Comparator(Trigram triDico, Trigram triMot, String mot){
         this.triDico = triDico;
         this.triMot = triMot;
-        this.mot = "<" + mot + ">";
+        //this.mot = "<" + mot + ">";
+        this.mot =  mot ;
     }
 
     public ArrayList<String> Compare(){
@@ -38,6 +39,8 @@ public class Comparator {
             int i = 0;
             for (HashMap.Entry<String, Integer> entry : occurenceMot.entrySet()) {
                 boolean getOut = false;
+                System.out.println(motsProches);
+                System.out.println(motsProches.get(0));
                 if (motsProches.get(0) == "") {
                     motsProches.add(0, entry.getKey());
                 } else {
