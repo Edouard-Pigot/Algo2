@@ -7,8 +7,8 @@ import java.util.*;
  */
 public class Trigram {
 
-    public HashMap<String,  HashSet<char[]>> trigrammesDesMots = new HashMap<>();
-    public HashMap<char[], HashSet<String>> motsDesTrigrammes = new HashMap<>();
+    public HashMap<String,  ArrayList<String>> trigrammesDesMots = new HashMap<>();
+    public HashMap<String, ArrayList<String>> motsDesTrigrammes = new HashMap<>();
     //public List<String> dictionnaire = new ArrayList<>();
 
     public Trigram(){}
@@ -36,24 +36,27 @@ public class Trigram {
     }
 
     public void decompositionTri(String mot){
-        HashSet<char[]> listeTri = new HashSet<>();
+        ArrayList<String> listeTri = new ArrayList<>();
         String motChevron = "<" + mot + ">";
-        char[] trigramme =  new char[3];
+        String trigramme= "" ;
+        //trigramme.substring(0,3);
+        //System.out.println(trigramme.toCharArray());
         for(int i = 0; i <= motChevron.length() - 3; i++){
-            motChevron.getChars(i, i + 3, trigramme, 0);
+            motChevron.getChars(i, i + 2, trigramme.toCharArray(), 0);
             listeTri.add(trigramme);
             if(!motsDesTrigrammes.containsKey(trigramme)){
-                HashSet<String> listeMot = new HashSet<>();
+                ArrayList<String> listeMot = new ArrayList<>();
                 listeMot.add(mot);
                 motsDesTrigrammes.put(trigramme, listeMot);
             } else {
-                HashSet<String> listeTmp = motsDesTrigrammes.get(trigramme);
+                ArrayList<String> listeTmp = motsDesTrigrammes.get(trigramme);
                 listeTmp.add(mot);
                 motsDesTrigrammes.put(trigramme, listeTmp);
+                System.out.println(motsDesTrigrammes);
             }
         }
         trigrammesDesMots.put(mot, listeTri);
-
+        //System.out.println(trigrammesDesMots);
     }
 
    /* "<coucou>"

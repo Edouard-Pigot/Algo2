@@ -17,11 +17,13 @@ public class Comparator {
     }
 
     public ArrayList<String> Compare(){
-        System.out.println(triMot.trigrammesDesMots.get(mot));
-        for(char[] tri : triMot.trigrammesDesMots.get(mot)){
-            System.out.println(tri);
+        //System.out.println(triMot.trigrammesDesMots.get(mot));
+        for(String tri : triMot.trigrammesDesMots.get(mot)){
+
+            //System.out.println(tri);
             if(!triDico.motsDesTrigrammes.containsKey(tri)) continue;
             for(String mot : triDico.motsDesTrigrammes.get(tri)){
+               // System.out.println(tri);
                 if(!occurenceMot.containsKey(mot)){
                     occurenceMot.put(mot, 1);
                 } else {
