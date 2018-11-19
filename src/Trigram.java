@@ -38,11 +38,13 @@ public class Trigram {
     public void decompositionTri(String mot){
         ArrayList<String> listeTri = new ArrayList<>();
         String motChevron = "<" + mot + ">";
-        String trigramme= "" ;
+        String trigramme = "" ;
+       // char[] trigramme = new char[3];
         //trigramme.substring(0,3);
         //System.out.println(trigramme.toCharArray());
-        for(int i = 0; i <= motChevron.length() - 3; i++){
-            motChevron.getChars(i, i + 2, trigramme.toCharArray(), 0);
+        for(int i = 0; i <= motChevron.length() - 3; ++i){
+           // motChevron.getChars(i, i + 3, trigramme.toCharArray() , 0);
+            trigramme = motChevron.substring(i, i+3);
             listeTri.add(trigramme);
             if(!motsDesTrigrammes.containsKey(trigramme)){
                 ArrayList<String> listeMot = new ArrayList<>();
@@ -52,7 +54,7 @@ public class Trigram {
                 ArrayList<String> listeTmp = motsDesTrigrammes.get(trigramme);
                 listeTmp.add(mot);
                 motsDesTrigrammes.put(trigramme, listeTmp);
-                System.out.println(motsDesTrigrammes);
+                //System.out.println(motsDesTrigrammes);
             }
         }
         trigrammesDesMots.put(mot, listeTri);

@@ -11,14 +11,15 @@ public class Main {
         triDico.lectureDico();
         Trigram triMot = new Trigram();
 
-        System.out.println("Taper mot a chercher :");
-        Scanner input = new Scanner(System.in);
-        String mot = input.nextLine();
+        //System.out.println("Taper mot a chercher :");
+        //Scanner input = new Scanner(System.in);
+        String billy = "mouton";
+       // String mot = input.nextLine();
 
-        triMot.lectureMot(mot);
+        triMot.lectureMot(billy);
 
         ArrayList<String> motsProches = new ArrayList<>(5);
-        Comparator comparator = new Comparator(triDico, triMot, mot);
+        Comparator comparator = new Comparator(triDico, triMot, billy);
         motsProches = comparator.Compare();
 
         System.out.println(motsProches);
@@ -26,7 +27,7 @@ public class Main {
         LevenshteinDistance LID = new LevenshteinDistance();
         for(String m_mot : motsProches) {
             System.out.println("calc");
-            System.out.println(LID.calculation(mot, m_mot));
+            System.out.println(LID.calculation(billy, m_mot));
         }
     }
 }
