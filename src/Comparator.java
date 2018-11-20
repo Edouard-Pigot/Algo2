@@ -9,6 +9,7 @@ public class Comparator {
     public String mot;
     public HashMap<String, Integer> occurenceMot = new HashMap<>();
     public ArrayList<String> motsProches = new ArrayList<>(5);
+    public ArrayList<Integer> motsProchesNb = new ArrayList<>(5);
 
     public Comparator(Trigram triDico, Trigram triMot, String mot){
         this.triDico = triDico;
@@ -18,13 +19,11 @@ public class Comparator {
     }
 
     public ArrayList<String> Compare(){
-        System.out.println(triMot.trigrammesDesMots);
-        System.out.println(triMot.trigrammesDesMots.get(mot));
+        /*System.out.println(triMot.trigrammesDesMots);
+        System.out.println(triMot.trigrammesDesMots.get(mot));*/
         //System.out.println(triMot.trigrammesDesMots.keySet().contains(mot));
         if(triMot.trigrammesDesMots.keySet().contains(mot)) {
-
             for (String tri : triMot.trigrammesDesMots.get(mot)) {
-
                 //System.out.println(tri);
                 if (!triDico.motsDesTrigrammes.containsKey(tri)) continue;
                 for (String mot : triDico.motsDesTrigrammes.get(tri)) {
@@ -36,28 +35,45 @@ public class Comparator {
                     }
                 }
             }
-            int i = 0;
             for (HashMap.Entry<String, Integer> entry : occurenceMot.entrySet()) {
-                boolean getOut = false;
-                System.out.println(motsProches);
-                System.out.println(motsProches.get(0));
-                if (motsProches.get(0) == "") {
+                if (motsProches.isEmpty()) {
                     motsProches.add(0, entry.getKey());
+                    motsProchesNb.add(0, entry.getValue());
                 } else {
                     for (String mot : motsProches) {
                         if (entry.getValue() > occurenceMot.get(mot)) {
-                            motsProches.add(i, entry.getKey());
-                            getOut = true;
-                        }
-                        if (getOut) {
+                            if(motsProches.size() >= 5) {
+                                motsProches.remove(0);
+                                motsProchesNb.remove(0);
+                            }
+                            motsProches.add(entry.getKey());
+                            motsProchesNb.add(entry.getValue());
+                            for(int i = motsProches.size() - 1; i <= motsProches.size() - 1; i--){
+                                boolean trier = true;
+                                for(int j = 0; j <= i - 1; j++){
+                                    if(occurenceMot.get(motsProches.get(j+1)) < occurenceMot.get(motsProches.get(j))){
+                                        String tmp = motsProches.get(j+1);
+                                        motsProches.set(j+1, motsProches.get(j));
+                                        motsProches.set(j, tmp);
+                                        int tmpNb = motsProchesNb.get(j+1);
+                                        motsProchesNb.set(j+1, motsProchesNb.get(j));
+                                        motsProchesNb.set(j, tmpNb);
+                                        trier = false;
+                                    }
+                                }
+                                if(trier){
+                                    break;
+                                }
+                            }
                             break;
                         }
-                        i++;
                     }
                 }
             }
 
         }
+        /*System.out.println(motsProches);
+        System.out.println(motsProchesNb);*/
         return motsProches;
     }
 }

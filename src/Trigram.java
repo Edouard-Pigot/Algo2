@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
+import java.text.Normalizer;
+import java.util.regex.Pattern;
 
 /**
  * Created by RAPHAEL on 02/11/2018.
@@ -37,6 +39,9 @@ public class Trigram {
 
     public void decompositionTri(String mot){
         ArrayList<String> listeTri = new ArrayList<>();
+        /*String temp = Normalizer.normalize(mot, Normalizer.Form.NFD);
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        mot = pattern.matcher(temp).replaceAll("");*/
         String motChevron = "<" + mot + ">";
         String trigramme = "" ;
        // char[] trigramme = new char[3];
